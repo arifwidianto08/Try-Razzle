@@ -4,6 +4,49 @@ import logo from './react.svg';
 import './Home.css';
 
 class Home extends React.Component {
+	getTopSeller = async () => {
+		const res = await fetch(
+			'https://asia-east2-tumbasin-production.cloudfunctions.net/api/top_sellersCached'
+		);
+		return res.json();
+	};
+
+	getBrands = async () => {
+		const res = await fetch(
+			'https://asia-east2-tumbasin-production.cloudfunctions.net/api/brandsCached'
+		);
+		return res.json();
+	};
+
+	getProducts = async () => {
+		const res = await fetch(
+			'https://asia-east2-tumbasin-production.cloudfunctions.net/api/productsCached?featured=true'
+		);
+		return res.json();
+	};
+
+	async componentDidMount() {
+		console.log('sebelum', new Date(Date.now()));
+
+		const topSeller = this.getTopSeller();
+		const brands = this.getBrands();
+		const products = this.getProducts();
+
+		const [topSellerData, brandsData, productsData] = await Promise.all([
+			topSeller,
+			brands,
+			products
+		]);
+		try {
+			console.log(topSellerData);
+			console.log(brandsData);
+			console.log(productsData);
+			console.log('sesudah', new Date(Date.now()));
+		} catch (error) {
+			console.error(`${error}`);
+		}
+	}
+
 	render() {
 		return (
 			<div className="Home">
