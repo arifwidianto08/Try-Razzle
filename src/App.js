@@ -7,13 +7,15 @@ import Users from './pages/Users';
 import Todos from './pages/Todos';
 import './App.css';
 
-const App = () => (
+const App = () => {
+     return (
 	<Switch>
 		<Route exact path="/" component={Home} />
 		<Route exact path="/posts" component={Posts} />
 		<Route exact path="/users" component={Users} />
 		<Route exact path="/todos" component={Todos} />
 	</Switch>
-);
+	)
+};
 
 export default App;
